@@ -94,7 +94,7 @@
 		    formalioID = "frm_4";
 		    srv="PERFILACIONPAN";
 		    var resp = getDataJsonSbm(urlIn,formalioID,srv,msjError);
-		    //console.log(resp);
+		    console.log(resp);
             let cod = resp[2];
             let respuesta = resp[1];
             //console.log(cod); 
@@ -110,8 +110,15 @@
                     let cuenta = productos['codigo_producto_a'];
                     let pro = productos['producto'];
                     let ncta = pro['cuenta'];
+                    ncta = ncta.toString();
+                    console.log(ncta);
+                    if(ncta.length < 12){
+                        console.log('add');
+                        ncta = ncta.padStart(12, '0');
+                    }
                     //console.log(pro);
-                    //console.log(ncta);
+                    console.log(ncta);
+                    return false
                     $('#rut').val(rut);
                     $('#dv').val(dv);
                     $('#cta1').val(cuenta);
