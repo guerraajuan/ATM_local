@@ -273,13 +273,13 @@
                     let pro = productos['producto'];
                     let ncta = pro['cuenta'];
                     ncta = ncta.toString();
-                    console.log(ncta);
+                    //console.log(ncta);
                     if(ncta.length < 12){
-                        console.log('add');
+                        //console.log('add');
                         ncta = ncta.padStart(12, '0');
                     }
-                    console.log(ncta);
-                    return false;
+                    // console.log(ncta);
+                    // return false;
                     $('#rut').val(rut);
                     $('#dv').val(dv);
                     $('#cta1').val(cuenta);

@@ -113,12 +113,12 @@
                     ncta = ncta.toString();
                     console.log(ncta);
                     if(ncta.length < 12){
-                        console.log('add');
+                        //console.log('add');
                         ncta = ncta.padStart(12, '0');
                     }
                     //console.log(pro);
                     console.log(ncta);
-                    return false
+                    //return false
                     $('#rut').val(rut);
                     $('#dv').val(dv);
                     $('#cta1').val(cuenta);
