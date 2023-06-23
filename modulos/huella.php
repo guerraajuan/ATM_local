@@ -273,7 +273,7 @@
                     let pro = productos['producto'];
                     let ncta = pro['cuenta'];
                     ncta = ncta.toString();
-                    //console.log(ncta);
+                    // console.log(ncta);
                     if(ncta.length < 12){
                         //console.log('add');
                         ncta = ncta.padStart(12, '0');

@@ -14,7 +14,7 @@
                         <i>1</i>
                     </div>
                     <h4 class="poppins hover-color2 text-left m-0 p-0">
-                        <a class="m-0" href="index.php?<?php echo util::encodeParamURL('pth=banco_falabella'); ?>">BANCO FALABELLA</a>
+                        <a class="m-0" href="index.php?<?php echo util::encodeParamURL('pth=banco_falabella'); ?>">CUENTAS</a>
                     </h4>
                 </div>
             </td>
@@ -29,7 +29,7 @@
                 </div>
             </td>
         </tr>
-        <tr>
+        <!-- <tr>
             <td style="width:50%;">
                 <div class="teaser with_border rounded text-center" style="cursor: pointer;" onclick="">
                     <div class="teaser_icon main_bg_color round size_small offset_icon">
@@ -50,7 +50,7 @@
                     </h4>
                 </div>
             </td>
-        </tr>
+        </tr> -->
 
     </tbody>
 </table>
