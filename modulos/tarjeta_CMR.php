@@ -2,7 +2,7 @@
 <table>
     <thead>
         <tr>
-            <th class="text-center"  style="color:#3c763d; padding-bottom:40px;" colspan="2" >
+            <th class="text-center"  style="color:#3c763d; padding-bottom:30px;" colspan="2" >
                 <h3 class="poppins" style="color:#3c763d;">INGRESE NUMERO DE LA TARJETA CMR </br><span class="subtit">(16 dígitos Ejemplo: xxxx xxxx xxxx xxxx ó xxxxxxxxxxxxxxxx)</span></h3>
                 <span id="div_work"></span>
             </th>
@@ -17,6 +17,18 @@
             </td>
         </tr>
         <tr>
+            <td class="text-center" colspan="2">                
+                <h3 class="poppins" style="color:#3c763d;">INGRESE DATOS DEL CHIP DE LA TARJETA </br><span class="subtit">(CVV-MM-AA)</span></h3>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+				<div class="form-group">
+					<input type="text" aria-required="true"  minlength="19" maxlength="19"  name="chip" id="chip" class="form-control text-center" placeholder="CHIP" >
+				</div>
+            </td>
+        </tr>
+        <tr>
             <td colspan="2">                
                 <div class="teaser with_border rounded text-center" style="cursor: pointer;" onclick="">
                     <h4 class="poppins hover-color3 text-center" style="color:#3c763d;">¿ESTÁ CORRECTO?</h4>
@@ -24,7 +36,13 @@
             </td>
         </tr>
         <tr>
-            <td style="width:50%;"></td>
+            <td style="width:50%;">
+            <div class="teaser with_border rounded text-center" style="cursor: pointer;" onclick="">
+                    <h4 class="poppins hover-color3 text-left">
+                        <a  href="index.php">VOLVER</a>
+                    </h4>
+                </div>
+            </td>
             <td style="width:50%;">
                 <div class="teaser with_border rounded text-center" style="cursor: pointer;" onclick="">
                     <h4 class="poppins hover-color3 text-right">

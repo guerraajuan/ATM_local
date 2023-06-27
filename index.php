@@ -33,6 +33,7 @@
 		$_SESSION['atm_sel']= $atm_sel;
 		$_SESSION['tiempo'] = time();
 		$_SESSION['usuario_autenticado']=true;
+		//echo "hay sesion";
 	}
 
 	//Va a principal en caso de que ya exista una sesion iniciada y se presione home (NO DEBE SELECCIONAR ATM)
@@ -41,8 +42,8 @@
 
 	}
 
-	//----------------------------------------------------------------------------------------------------//
-	//DESCONECTAR POR TIEMPO
+	// //----------------------------------------------------------------------------------------------------//
+	// //DESCONECTAR POR TIEMPO
 
 	$query =$con->prepare("SELECT * FROM atm WHERE ocupado =1");
 	$respuesta = $query->execute();
@@ -68,7 +69,7 @@
 		
 		}
 	}
-	//----------------------------------------------------------------------------------------------------//
+	// //----------------------------------------------------------------------------------------------------//
 
 
 	//Comprobamos si esta definida la sesión 'tiempo'.
@@ -102,7 +103,10 @@
 	}
 	
     //SE ASIGNA VALOR A ATM_SEL PARA QUE APAREZCA EN LA CABACERA
-	if( ( isset($_SESSION['atm_sel']))) $atm_sel =$_SESSION['atm_sel'];
+	if( ( isset($_SESSION['atm_sel']))){
+		$atm_sel =$_SESSION['atm_sel'];
+		//echo $atm_sel;
+	}
 	else{ // SI NO HAY ATM SEL ES XQ NO HAY SESISION ACTIVA Y SE DEBE IR AL HOME (SELECCION)   ES LO MISMO QUE VALIDAD LA VARIABLE USUARIO autenticado
 		//Removemos sesión.
 		session_unset();
@@ -137,10 +141,10 @@
 <body>
 	
 	
-	<div id="canvas">
-		<div id="box_wrapper">
+	<div id="">
+		<div id="">
 
-			<header class="page_header header_white toggler_xs_right section_padding_20">
+			<header class="page_header header_white toggler_xs_right section_padding_30">
 				<div class="container-fluid">
 					<div class="row">
 						<div class="col-sm-12 display_table">
@@ -148,7 +152,7 @@
 								<a href="./" class="logo top_logo">									
 									<span class="logo_text">
 										<span class="big" style="color: #219543;">ATM  <?php if(isset($_SESSION['atm_sel'])) echo $atm_sel   ?> </span>
-										<span class="small-text">Banco Falabella</span>
+										<span class="small-text">Banco Falabella   <?php echo $atm_sel   ?></span>
 									</span>
 								</a>
 							</div>
@@ -162,203 +166,35 @@
 			</header>
 
 
-			<section class="ls section_padding_top_10 section_padding_bottom_100">
+			<section class="ls section_padding_top_10 section_padding_bottom_100 content">
 				<div class="container">
 
-				<?php 	
+					<?php 	
+						
+						switch ($goModulo) {
+							case "home":
+								include './modulos/seleccion.php';						
+							break;
+							case "principal":
+								include './modulos/principal.php';						
+							break;
+							case "tarjeta_CMR":
+								include './modulos/tarjeta_CMR.php';						
+							break;								
+							default:							
+								include './modulos/principal.php';
+								negSistema::saveNavegacion("Navegacion","Inicio del Sistema",0);
+							break;
+						}
+						
 					
-					switch ($goModulo) {
-						case "home":
-							include './modulos/seleccion.php';						
-						break;
-						case "principal":
-							include './modulos/principal.php';						
-						break;
-						case "banco_falabella":
-							include './modulos/banco_falabella.php';						
-						break;
-						case "perfilacion_rut":
-							include './modulos/perfilacion_rut.php';						
-						break;
-						case "pago_deposito":
-							include './modulos/pago_deposito.php';						
-						break;	
-						case "forma_ingreso":
-							include './modulos/forma_ingreso.php';						
-						break;	
-						case "cuentas":
-							include './modulos/cuentas.php';						
-						break;
-						case "forma_deposito":
-							include './modulos/forma_deposito.php';						
-						break;	
-						case "ingreso_efectivo":
-							include './modulos/ingreso_efectivo.php';						
-						break;	
-						case "total_deposito":
-							include './modulos/total_deposito.php';						
-						break;	
-						case "deposito_efectivo":
-							include './modulos/deposito_efectivo.php';						
-						break;
-						case "cliente_banco_falabella":
-							include './modulos/cliente_banco_falabella.php';						
-						break;
-						case "huella":
-							include './modulos/huella.php';						
-						break;	
-						case "clave":
-							include './modulos/clave.php';						
-						break;
-						case "cliente_cuenta":
-							include './modulos/cliente_cuenta.php';						
-						break;	
-						case "cliente_giro":
-							include './modulos/cliente_giro.php';						
-						break;	
-						case "cliente_giro_transaccion":
-							include './modulos/cliente_giro_transaccion.php';						
-						break;	
-						case "cliente_giro_otromonto":
-							include './modulos/cliente_giro_otromonto.php';						
-						break;
-						case "cambio_clave_1":
-							include './modulos/cambio_clave_1.php';						
-						break;
-						case "cambio_clave_2":
-							include './modulos/cambio_clave_2.php';						
-						break;
-						case "cambio_clave_3":
-							include './modulos/cambio_clave_3.php';						
-						break;
-						case "cambio_clave_4":
-							include './modulos/cambio_clave_4.php';						
-						break;
-						case "cambio_clave_5":
-							include './modulos/cambio_clave_5.php';						
-						break;
-						case "espera":
-							include './modulos/espera.php';						
-						break;
-						case "rh_consultasaldo_espera":
-							include './modulos/rh_consultasaldo_espera.php';						
-						break;	
-						case "rh_consultasaldo_realizado":
-							include './modulos/rh_consultasaldo_realizado.php';						
-						break;	
-						case "perfilacion_pan":
-							include './modulos/perfilacion_pan.php';						
-						break;
-						case "perfilacion_pan_mensaje":
-							include './modulos/perfilacion_pan_mensaje.php';						
-						break;
-						case "clave_perfilacionpan":
-							include './modulos/clave_perfilacionpan.php';						
-						break;
-						case "otros_bancos":
-							include './modulos/otros_bancos.php';						
-						break;
-						case "tarjeta_forma_ingreso":
-							include './modulos/tarjeta_forma_ingreso.php';						
-						break;
-						case "espera_CMR":
-							include './modulos/espera_CMR.php';						
-						break;
-						case "tarjeta_CMR":
-							include './modulos/tarjeta_CMR.php';						
-						break;
-						case "clave_CMR":
-							include './modulos/clave_CMR.php';						
-						break;
-						case "mensaje_huella_CMR":
-							include './modulos/mensaje_huella_CMR.php';						
-						break;
-						case "menu_CMR":
-							include './modulos/menu_CMR.php';						
-						break;
-						case "consulta_saldo_CMR":
-							include './modulos/consulta_saldo_CMR.php';						
-						break;
-						case "avance_montos_CMR":
-							include './modulos/avance_montos_CMR.php';						
-						break;
-						case "avance_cuotas_CMR":
-							include './modulos/avance_cuotas_CMR.php';						
-						break;
-						case "avance_fechas_CMR":
-							include './modulos/avance_fechas_CMR.php';						
-						break;
-						case "avance_otro_monto_CMR":
-							include './modulos/avance_otro_monto_CMR.php';						
-						break;
-						case "avance_otra_cuota_CMR":
-							include './modulos/avance_otra_cuota_CMR.php';						
-						break;
-						case "avance_transaccion_CMR":
-							include './modulos/avance_transaccion_CMR.php';						
-						break;
-						case "credito_consumo_montosCMR":
-							include './modulos/credito_consumo_montosCMR.php';						
-						break;
-						case "cambio_clave_1_CMR":
-							include './modulos/cambio_clave_1_CMR.php';						
-						break;
-						case "cambio_clave_2_CMR":
-							include './modulos/cambio_clave_2_CMR.php';						
-						break;	
-						case "cambio_clave_3_CMR":
-							include './modulos/cambio_clave_3_CMR.php';						
-						break;
-						case "cambio_clave_4_CMR":
-							include './modulos/cambio_clave_4_CMR.php';						
-						break;
-						case "cambio_clave_5_CMR":
-							include './modulos/cambio_clave_5_CMR.php';						
-						break;
-						case "cambio_clave_6_CMR":
-							include './modulos/cambio_clave_6_CMR.php';						
-						break;
-						case "seleccion_avanceCMR":
-							include './modulos/seleccion_avanceCMR.php';						
-						break;	
-						case "comprobantepdf_consulta":
-							include './modulos/comprobantepdf_consulta.php';						
-						break;		
-						case "comprobantepdf_giro":
-							include './modulos/comprobantepdf_giro.php';						
-						break;	
-						case "comprobantepdf_deposito":
-							include './modulos/comprobantepdf_deposito.php';						
-						break;	
-						case "comprobantepdf_consulta_cmr":
-							include './modulos/comprobantepdf_consulta_cmr.php';						
-						break;	
-						case "comprobantepdf_avance_cmr":
-							include './modulos/comprobantepdf_avance_cmr.php';						
-						break;
-						case "credito_consumo_cuotasCMR":
-							include './modulos/credito_consumo_cuotasCMR.php';						
-						break;
-						case "credito_consumo_otro_montoCMR":
-							include './modulos/credito_consumo_otro_montoCMR.php';						
-						break;	
-						case "comprobantepdf_super_avance_cmr":
-							include './modulos/comprobantepdf_super_avance_cmr.php';						
-						break;								
-						default:							
-							include './modulos/principal.php';
-							negSistema::saveNavegacion("Navegacion","Inicio del Sistema",0);
-						break;
-					}
-					
-				
-				?>
+					?>
 					
 					
 				</div>
 			</section>
 
-			<section class="ls page_copyright section_padding_15">
+			<section class="ls page_copyright section_padding_15 footer">
 				<div class="container">
 					<div class="row">
 						<div class="col-sm-12 text-center">
@@ -381,28 +217,27 @@
 
 
 
-	<script type="text/javascript">
 
-			function cerrar(sel)
-			{
-					   
-					msjError = "No pudimos realizar lo solicitado";
-					urlIn = "./srv/sistema.php";
-					formalioID = "frm_4";
-					srv="CIERRE";
-					$("#acc").val(srv); 
-					$("#sel").val(sel); 
-					var pth = getDataJsonSbm(urlIn,formalioID,srv,msjError);
-					console.log(pth);
-					location.href = "http://localhost/ATM/"; 
-				
-			}
-		
-	</script>
-
-
-
-	
 </body>
 
 </html>
+
+
+<script type="text/javascript">
+
+function cerrar(sel)
+{
+		   
+		msjError = "No pudimos realizar lo solicitado";
+		urlIn = "./srv/sistema.php";
+		formalioID = "frm_4";
+		srv="CIERRE";
+		$("#acc").val(srv); 
+		$("#sel").val(sel); 
+		var pth = getDataJsonSbm(urlIn,formalioID,srv,msjError);
+		console.log(pth);
+		location.href = "http://localhost/ATM/"; 
+	
+}
+
+</script>

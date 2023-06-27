@@ -1561,7 +1561,7 @@ body {
 	font-size: 16px;
 	font-weight: 300;
 	line-height: 30px;
-	background-color: #ccc;
+	background-color: #ffffff;
 }
 
 h1,
@@ -13743,3 +13743,12 @@ a.color-icon.border-icon:hover {
 	pointer-events: none;
 	opacity: 0.5;
 }
+
+.footer {
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	background-color: #ccc;
+	padding: 20px;
+  }
+  
