@@ -36,6 +36,8 @@
 		//echo "hay sesion";
 	}
 
+
+
 	//Va a principal en caso de que ya exista una sesion iniciada y se presione home (NO DEBE SELECCIONAR ATM)
 	if( isset($_SESSION['atm_sel']) && $goModulo == 'home' ){
 		$goModulo='principal';
@@ -111,11 +113,15 @@
 		//Removemos sesión.
 		session_unset();
 		//Destruimos sesión.
-		session_destroy();     
+		session_destroy();  
 		$_REQUEST["qwerty"]= '';
 		$atm_sel = '';
 		$goModulo="home";
+		
 	}
+
+
+
 
 
 ?>

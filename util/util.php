@@ -91,7 +91,8 @@ class util
         foreach($cad_get as $value)
         {
             $val_get = explode("=",$value); //asigno los valosres al GET
-            $_REQUEST[$val_get[0]]=utf8_decode($val_get[1]);
+            //$_REQUEST[$val_get[0]]=utf8_decode($val_get[1]);
+            $_REQUEST[$val_get[0]]=mb_convert_encoding($val_get[1], 'ISO-8859-1', 'UTF-8');
         }
     }
     public static function validaSession($vuelve) 

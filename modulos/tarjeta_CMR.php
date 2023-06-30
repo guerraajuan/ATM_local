@@ -64,7 +64,7 @@
     </tbody>
 </table>
 <form name="frm_4" id="frm_4"  >
-    <input type="hidden" id="acc" name="acc" value="TARJETACMR" />
+    <input type="hidden" id="acc" name="acc" value="PERF_CMR" />
     <input type="hidden" id="sel" name="sel" value="" />
     <input type="hidden" id="tarjeta" name="tarjeta" value="" />
     <input type="hidden" id="from" name="from" value="TARJETA_CMR" />
@@ -99,7 +99,7 @@
         else{
             $('#cmr').val(tarjeta);
         }
-        console.log( $('#cmr').val().length);
+        //console.log( $('#cmr').val().length);
     }
 
 	function limpiar(){
@@ -127,10 +127,71 @@
             msjError = "No pudimos realizar lo solicitado";
 		    urlIn = "./srv/sistema.php";
 		    formalioID = "frm_4";
-		    srv="TARJETACMR";
+		    srv="PERF_CMR";
 		    var pth = getDataJsonSbm(urlIn,formalioID,srv,msjError);
-		    console.log(pth);
-            location.href = "index.php?"+pth;  
+		    //console.log(pth);
+            //location.href = "index.php?"+pth;  
+            let resp = getDataJsonSbm(urlIn,formalioID,srv,msjError);
+		    //console.log(resp);
+            let cod = resp[2];
+            let respuesta = resp[1];
+            console.log(cod); 
+            console.log(respuesta); 
+            return false;
+
+            if(cod == 1){
+                if (respuesta.hasOwnProperty("productos")){
+                        console.log('aqui');
+                        let codigo_error = respuesta['codigo_error'];
+                        let cliente = respuesta['cliente'];
+                        let producto = respuesta['productos']['producto'];
+                        let rut = cliente['rut'];
+                        let dv = cliente['dv'];
+                        let disponible_avance = producto['disponible_avance'];
+                        let disponible_super = producto['disponible_super'];
+                        let nombre = cliente['nombre'];
+                        $('#rut').val(rut);
+                        $('#dv').val(dv);
+                        $('#super').val(disponible_super);
+                        $('#avance').val(disponible_avance);
+                        $('#from').val('PERFILACIONCMROK');
+                        $('#nombre').val(nombre);
+    
+                        msjError = "No pudimos realizar lo solicitado";
+		                urlIn = "./srv/sistema.php";
+		                formalioID = "frm_4";
+		                srv="PERFILACIONCMR";
+		                var pth = getDataJsonSbm(urlIn,formalioID,srv,msjError);
+                        console.log(pth);
+                        location.href = "index.php?"+pth; 
+                }
+                else{
+                        console.log('sino');
+                        $('#from').val('CMR');
+                        $('#acc').val('TARJETACUENTASERROR');
+                        msjError = "No pudimos realizar lo solicitado";
+		                urlIn = "./srv/sistema.php";
+		                formalioID = "frm_4";
+		                srv="TARJETACUENTASERROR";
+		                var pth = getDataJsonSbm(urlIn,formalioID,srv,msjError);
+                        console.log(pth);
+                        location.href = "index.php?"+pth;
+                }
+            }
+            else{
+                console.log('sinooo');
+                $('#from').val('CMR');
+                $('#acc').val('TARJETACUENTASERROR');
+                msjError = "No pudimos realizar lo solicitado";
+		        urlIn = "./srv/sistema.php";
+		        formalioID = "frm_4";
+		        srv="TARJETACUENTASERROR";
+		        var pth = getDataJsonSbm(urlIn,formalioID,srv,msjError);
+                console.log(pth);
+                location.href = "index.php?"+pth;
+            }
+
+    
 
         }
         else{
@@ -143,6 +204,7 @@
        
     }
 
+    
 	
 
 	

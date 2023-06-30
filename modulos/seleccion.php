@@ -1,8 +1,11 @@
 <?php
     $msj = '';
 	if(isset($_REQUEST["msj"])) $msj = $_REQUEST["msj"];
-    $_REQUEST["qwerty"]= '';
+    $test = '';
+    if(isset($_REQUEST["pth"])) $test=$_REQUEST["pth"];
+    echo $test;
 
+   
 
 ?>
 
@@ -138,12 +141,27 @@
     <input type="hidden" id="sel" name="sel" value="" />
     <input type="hidden" id="atm_sel" name="atm_sel" value="" />
     <input type="hidden" id="msj" name="msj" value="<?php echo $msj; ?>" />
+    <input type="hidden" id="pth" name="pth" value="<?php echo $test; ?>" />
 </from>
 
 <script>
 
 
     document.addEventListener("DOMContentLoaded", function(event) {
+
+        let pth_1 = $('#pth').val();
+        if(pth_1 != ''){
+            msjError = "No pudimos realizar lo solicitado";
+            urlIn = "./srv/sistema.php";
+            formalioID = "frm_4";
+            srv="CIERRE";
+            $("#acc").val(srv); 
+            $("#sel").val(sel); 
+            var pth = getDataJsonSbm(urlIn,formalioID,srv,msjError);
+            console.log(pth);
+            location.href = "http://localhost/ATM/"; 
+        }
+
         let msj = $('#msj').val();
         if(msj == '1') $('#mensaje').show();
         $('#btn_cerrar').css('pointer-events','none');

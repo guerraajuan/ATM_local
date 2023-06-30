@@ -97,7 +97,6 @@ if($acc == "PERFILACIONRUT")
 		
 	}
 }
-
 else if($acc == 'PERFILACIONRUTHUELLA'){
 	$from = $_REQUEST["from"];
 	$rut = $_REQUEST["rut"];
@@ -141,7 +140,6 @@ else if($acc == "PERFIL")
 	$pth = util::encodeParamURL('pth=cuentas&cta1='.$cta1.'&cta2='.$cta2.'&cta3='.$cta3.'&rut='.$rut.'&from='.$from.'&dv='.$dv.'&ncta1='.$ncta1.'&ncta2='.$ncta2.'&ncta3='.$ncta3.'&tarj1='.$tarjeta1.'&tarj2='.$tarjeta2.'&tarj3='.$tarjeta3);
 	echo  json_encode($pth); 
 }
-
 else if($acc == "DEPOSITO_EFECTIVO")
 {
     $rut = $_REQUEST["rut"];
@@ -176,7 +174,6 @@ else if($acc == "DEPOSITO_EFECTIVO")
 	$pth = util::encodeParamURL('pth=total_deposito&total='.$total.'&cant_1='.$cant_1.'&cant_2='.$cant_2.'&cant_5='.$cant_5.'&cant_10='.$cant_10.'&cant_20='.$cant_20.'&from='.$from.'&rut='.$rut.'&dv='.$dv.'&cta='.$cta.'&co_cta='.$co_cta.'&cta1='.$cta1.'&cta2='.$cta2.'&cta3='.$cta3.'&ncta='.$ncta.'&ncta1='.$ncta1.'&ncta2='.$ncta2.'&ncta3='.$ncta3.'&tarj1='.$tarjeta1.'&tarj2='.$tarjeta2.'&tarj3='.$tarjeta3.'&tarj='.$tarjeta);
 	echo  json_encode($pth); 
 }
-
 else if($acc == "RUT_HUELLA")
 {
     $rut_param = $_REQUEST["rut_param"];
@@ -185,7 +182,6 @@ else if($acc == "RUT_HUELLA")
 	$pth = util::encodeParamURL('pth=huella&from='.$from.'&dv='.$dv.'&rut='.$rut_param);
 	echo  json_encode($pth); 
 }
-
 else if($acc == "CLIENTE_GIRO")
 {
     $rut = $_REQUEST["rut"];
@@ -216,7 +212,6 @@ else if($acc == "CLIENTE_GIRO")
 	$pth = util::encodeParamURL('pth=cliente_giro_transaccion&from='.$from.'&rut='.$rut.'&dv='.$dv.'&cta='.$cta.'&co_cta='.$co_cta.'&monto='.$monto.'&ncta1='.$ncta1.'&ncta2='.$ncta2.'&ncta3='.$ncta3.'&tarj1='.$tarjeta1.'&tarj2='.$tarjeta2.'&tarj3='.$tarjeta3.'&tarj='.$tarjeta.'&ncta='.$ncta.'&cta1='.$cta1.'&cta2='.$cta2.'&cta3='.$cta3.'&paso=1');
 	echo  json_encode($pth); 
 }
-
 else if($acc == "CLIENTE_BANCOFALABELLA")
 {
     $from = $_REQUEST["from"];
@@ -253,7 +248,6 @@ else if($acc == "CAMBIO_CLAVE")
 		$pth = util::encodeParamURL('pth=cambio_clave_5&from='.$from.'&rut='.$rut.'&dv='.$dv.'&cta='.$cta.'&co_cta='.$co_cta);
 	echo  json_encode($pth); 
 }
-
 else if($acc == "RH_CONSULTA_SALDO")
 {
     $rut = $_REQUEST["rut"];
@@ -1807,7 +1801,7 @@ else if($acc == "CIERRE")
 		//Destruimos sesión.
 		session_destroy();              
 		//Redirigimos pagina.
-		$pth='dSDd'; 
+		$pth=''; 
 		echo  json_encode($pth); 
 
 }
@@ -1938,6 +1932,35 @@ else if($acc == "DESCARGA_SUPER_AVANCE_CMR")
 	$pth =  util::encodeParamURL('pth=comprobantepdf_super_avance_cmr&rut_op='.$rut_op.'&id_solicitud='.$id_solicitud.'&fecha='.$fecha.'&fecha_cont='.$fecha_cont.'&hora='.$hora.'&cajero='.$cajero.'&n_operacion='.$n_operacion.'&operacion='.$operacion.'&n_tarjeta='.$n_tarjeta.'&monto_op='.$monto_op.'&cuotas_op='.$cuotas_op.'&nombre_op='.$nombre_op);
    
 	echo  json_encode($pth); 
+}
+
+else if($acc == "PERF_CMR"){
+	if (!empty($_REQUEST["tarjeta"])) {
+
+		$tarjeta = str_replace(' ', '', $_REQUEST["tarjeta"]);
+		if(isset($_REQUEST["from"])) $from = $_REQUEST["from"];
+
+		$url = 'http://172.20.249.243:9080/perfilacion_CMR_AD?tarjeta='.$tarjeta.'&pin=1&seguro=1'; //ALTA DISPONIBILIDAD
+		$consultaSB =  file_get_contents($url);
+		$resp = json_decode($consultaSB);
+		$xml = $resp->salida;
+
+
+		$respuesta = array(
+            "1" => $xml,
+            "2" => ($xml->codigo_error == '0') ? '1' : '0',
+        );
+		echo json_encode($respuesta);
+
+	}
+	else{
+		$respuesta = array(
+			"1" => '',
+			"2" => '0',
+		);
+		echo json_encode($respuesta);
+	}
+
 }
 
 
