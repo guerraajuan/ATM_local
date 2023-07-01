@@ -222,7 +222,7 @@ function closeOpen(cls1,cls2,cls3,opn1,opn2,opn3)
  */
 function getDataJsonSbm(urlIn,formalioID,srv,msjError)
 {
-    $("#acc").val(srv);    
+    $("#acc").val(srv);  
     var devuelve="";
     var url = urlIn; // El script a dónde se realizará la petición.
     $.ajax({
@@ -576,6 +576,8 @@ function crearModulo(nombre,link,parametros,vacio,texto)
 	return modulo;
 
 }
+
+
 
 
 

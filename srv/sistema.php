@@ -1933,34 +1933,26 @@ else if($acc == "DESCARGA_SUPER_AVANCE_CMR")
    
 	echo  json_encode($pth); 
 }
-
+///////////////////////////utilizadas Parte II
 else if($acc == "PERF_CMR"){
 	if (!empty($_REQUEST["tarjeta"])) {
 
 		$tarjeta = str_replace(' ', '', $_REQUEST["tarjeta"]);
-		if(isset($_REQUEST["from"])) $from = $_REQUEST["from"];
+		$respuesta =  util::perfilacionCMR($tarjeta);
 
-		$url = 'http://172.20.249.243:9080/perfilacion_CMR_AD?tarjeta='.$tarjeta.'&pin=1&seguro=1'; //ALTA DISPONIBILIDAD
-		$consultaSB =  file_get_contents($url);
-		$resp = json_decode($consultaSB);
-		$xml = $resp->salida;
-
-
-		$respuesta = array(
-            "1" => $xml,
-            "2" => ($xml->codigo_error == '0') ? '1' : '0',
-        );
 		echo json_encode($respuesta);
 
 	}
-	else{
-		$respuesta = array(
-			"1" => '',
-			"2" => '0',
-		);
-		echo json_encode($respuesta);
-	}
 
+
+}
+else if($acc == "ERROR_PERF")
+{
+	$from = isset($_REQUEST["from"]) ? $_REQUEST["from"] : '';
+	$tipo_error = isset($_REQUEST["tipo_error"]) ? $_REQUEST["tipo_error"] : '';
+
+	$pth = util::encodeParamURL('pth=perfilacion_error&from='.$from).'&tipo_error='.$tipo_error;
+	echo  json_encode($pth); 
 }
 
 

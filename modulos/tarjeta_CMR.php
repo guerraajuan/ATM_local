@@ -1,4 +1,7 @@
-
+<div id="overlay">
+			<div id="loader"></div>
+			<div id="loading-text">Cargando...</div>
+</div>
 <table>
     <thead>
         <tr>
@@ -68,14 +71,18 @@
     <input type="hidden" id="sel" name="sel" value="" />
     <input type="hidden" id="tarjeta" name="tarjeta" value="" />
     <input type="hidden" id="from" name="from" value="TARJETA_CMR" />
+    <input type="hidden" id="tipo_error" name="tipo_error" value="" />
 
-</from>
+</form>
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", function(event) {
         $('#cmr').focus();
+
     });
 
     document.getElementById('cmr').addEventListener('paste', interceptarPegado);
+
+
 
     function interceptarPegado(ev) {
         let tarjeta = ev.clipboardData.getData('text/plain');
@@ -120,24 +127,29 @@
     }
 
     function go_to_espera(){
+
+        $("#overlay").show();
+
         cmr = $('#cmr').val();
-        //console.log(cmr);
         if(cmr.length >= 16 && cmr.length <=21){
+           
+
             $('#tarjeta').val(cmr);
             msjError = "No pudimos realizar lo solicitado";
 		    urlIn = "./srv/sistema.php";
 		    formalioID = "frm_4";
 		    srv="PERF_CMR";
-		    var pth = getDataJsonSbm(urlIn,formalioID,srv,msjError);
-		    //console.log(pth);
-            //location.href = "index.php?"+pth;  
             let resp = getDataJsonSbm(urlIn,formalioID,srv,msjError);
 		    //console.log(resp);
             let cod = resp[2];
             let respuesta = resp[1];
+            let tipo_error = resp[3];
             console.log(cod); 
             console.log(respuesta); 
-            return false;
+            console.log(tipo_error); 
+           
+
+            //return false;
 
             if(cod == 1){
                 if (respuesta.hasOwnProperty("productos")){
@@ -178,14 +190,13 @@
                         location.href = "index.php?"+pth;
                 }
             }
-            else{
-                console.log('sinooo');
-                $('#from').val('CMR');
-                $('#acc').val('TARJETACUENTASERROR');
+            else{//ERROR AL PERFILAR
+                $('#tipo_error').val(tipo_error);
+                $('#acc').val('ERROR_PERF');
                 msjError = "No pudimos realizar lo solicitado";
 		        urlIn = "./srv/sistema.php";
 		        formalioID = "frm_4";
-		        srv="TARJETACUENTASERROR";
+		        srv="ERROR_PERF";
 		        var pth = getDataJsonSbm(urlIn,formalioID,srv,msjError);
                 console.log(pth);
                 location.href = "index.php?"+pth;
@@ -195,10 +206,17 @@
 
         }
         else{
-            $("#div_work").html("INGRESE UN NUMERO DE TARJETA CMR VALIDO");
-            $('#div_work').css('color', 'red');
-            $('#cmr').val('');
-		    $('#cmr').focus();
+            console.log('cierra');
+            setTimeout(function() {
+                $("#overlay").hide();
+                $("#div_work").html("INGRESE UN NUMERO DE TARJETA CMR VALIDO");
+                $('#div_work').css('color', 'red');
+                $('#cmr').val('');
+                $('#cmr').focus();
+            }, 2000);
+           
+
+
         }
 
        

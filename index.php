@@ -145,9 +145,10 @@
 </head>
 
 <body>
-	
+
 	
 	<div id="">
+
 		<div id="">
 
 			<header class="page_header header_white toggler_xs_right section_padding_30">
@@ -186,7 +187,10 @@
 							break;
 							case "tarjeta_CMR":
 								include './modulos/tarjeta_CMR.php';						
-							break;								
+							break;	
+							case "perfilacion_error":
+								include './modulos/perfilacion_error.php';						
+							break;							
 							default:							
 								include './modulos/principal.php';
 								negSistema::saveNavegacion("Navegacion","Inicio del Sistema",0);

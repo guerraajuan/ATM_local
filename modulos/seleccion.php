@@ -142,7 +142,7 @@
     <input type="hidden" id="atm_sel" name="atm_sel" value="" />
     <input type="hidden" id="msj" name="msj" value="<?php echo $msj; ?>" />
     <input type="hidden" id="pth" name="pth" value="<?php echo $test; ?>" />
-</from>
+</form>
 
 <script>
 

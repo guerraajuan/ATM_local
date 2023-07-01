@@ -358,32 +358,49 @@ class util
     	return $htm;
     }
 
-	// public static function validasesionATM($tiempo)
-    // {
-	// 		//Tiempo en segundos para dar vida a la sesión.
-	// 		$inactivo = 30;//20min en este caso.
-	
-	// 		//Calculamos tiempo de vida inactivo.
-	// 		$vida_session = time() - $tiempo;
-	
-	// 			//Compraración para redirigir página, si la vida de sesión sea mayor a el tiempo insertado en inactivo.
-	// 			if($vida_session > $inactivo)
-	// 			{
-	// 				//Removemos sesión.
-	// 				session_unset();
-	// 				//Destruimos sesión.
-	// 				session_destroy();              
-	// 			}
-	
+	public static function perfilacionCMR($tarjeta)
+    {   	
 		
-	// 	else{
-	// 		$_SESSION['tiempo'] = time();
-	// 	}
-    	
+		$respuesta = array(
+			"1" => '',
+			"2" => '0',
+			"3" => '1'//tarjeta errornea
+		);
+		
+		if (empty($tarjeta)) return $respuesta; 
 
-    // }
+		$url = 'http://172.20.249.243:9080/perfilacion_CMR_AD?tarjeta='.$tarjeta.'&pin=1&seguro=1'; //ALTA DISPONIBILIDAD
+		$context = stream_context_create([
+			'http' => [
+				'timeout' => 5, // Tiempo de espera en segundos
+			],
+		]);
+		$consultaSB = @file_get_contents($url, false, $context);
 
+		//tiempo de espera excedido
+		if ($consultaSB === false){
+			$respuesta["3"] = '2'; // Tiempo de respuesta en servicio de perfilacion superado
+			return $respuesta;
 
+		} 
+		else {
+			$resp = json_decode($consultaSB);
+			$xml = $resp->salida;
+			if($xml->codigo_error == '0'){
+				$respuesta = array(
+					"1" => $xml,
+					"2" => '1',
+					"3" => ''
+				);
+				return $respuesta;
+			}
+			else{
+				$respuesta["3"] = '3'; // Error en servicio de perfilacion
+				return $respuesta;
+			} 		
+   		}
+
+	}
 
 
 
