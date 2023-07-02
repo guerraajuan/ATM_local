@@ -248,7 +248,13 @@ function getDataJsonSbm(urlIn,formalioID,srv,msjError)
             	 console.log("Error (a):"+a);  
                  console.log("Error (b):"+b); 
                  console.log("Error (c):"+c);
-            }
+            },
+			complete: function() {
+				// Ocultar el mensaje de carga después de la llamada AJAX, independientemente del resultado
+				$("#overlay").hide();
+
+			  }
+	
          });
   return devuelve;
 }
@@ -576,6 +582,8 @@ function crearModulo(nombre,link,parametros,vacio,texto)
 	return modulo;
 
 }
+
+
 
 
 

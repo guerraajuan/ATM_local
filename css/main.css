@@ -13783,8 +13783,8 @@ a.color-icon.border-icon:hover {
   
   #loading-text {
 	position: absolute;
-	top: 50%;
-	left: 50%;
+	top:59%;
+	left: 52%;
 	transform: translate(-50%, -50%);
 	color: #fff;
 	font-size: 18px;

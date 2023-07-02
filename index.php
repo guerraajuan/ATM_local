@@ -145,6 +145,10 @@
 </head>
 
 <body>
+	<div id="overlay">
+		<div id="loader"></div>
+		<div id="loading-text">Cargando...</div>
+	</div>
 
 	
 	<div id="">
