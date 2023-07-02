@@ -2,7 +2,7 @@
    	$from = isset($_REQUEST["from"]) ? $_REQUEST["from"] : '';
     $tipo_error = isset($_REQUEST["tipo_error"]) ? $_REQUEST["tipo_error"] : '';
     $mensaje ='';
-  
+
     if($from == 'TARJETA_CMR'){
         $goto = 'index.php?'.util::encodeParamURL('pth=tarjeta_CMR'); 
     }
@@ -12,13 +12,13 @@
 
     switch ($tipo_error) {
         case "1":
-            $mensaje ='';						
+            $mensaje ='Tarjeta Errónea';						
         break;
         case "2":
-            $mensaje ='Tiempo de respuesta en servicio de perfilacion superado';											
+            $mensaje ='Tiempo de respuesta en servicio de perfilación superado';											
         break;
         case "3":
-            $mensaje ='Error en servicio de perfilacion';					
+            $mensaje ='Error en servicio de perfilación';					
         break;								
     }
   
@@ -28,7 +28,6 @@
     <thead>
         <tr>
             <th class="text-center"  style="color:#3c763d; padding-bottom:60px;" colspan="2" >
-                <h3 class="poppins" style="color:#3c763d;">TARJETA ERRONEA</h3>
                 <h3 class="poppins" style="color:#3c763d;"><?php echo $mensaje; ?></h3>
                 <span id="div_work"></span>
             </th>

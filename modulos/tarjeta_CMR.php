@@ -143,6 +143,54 @@
                 console.log(respuesta); 
                 console.log(tipo_error); 
                 //return false;
+
+                if(cod == 1){
+                    if (respuesta.hasOwnProperty("productos")){
+                        console.log('aqui');
+                        let codigo_error = respuesta['codigo_error'];
+                        let cliente = respuesta['cliente'];
+                        let producto = respuesta['productos']['producto'];
+                        let rut = cliente['rut'];
+                        let dv = cliente['dv'];
+                        let disponible_avance = producto['disponible_avance'];
+                        let disponible_super = producto['disponible_super'];
+                        let nombre = cliente['nombre'];
+                        $('#rut').val(rut);
+                        $('#dv').val(dv);
+                        $('#super').val(disponible_super);
+                        $('#avance').val(disponible_avance);
+                        $('#from').val('PERFILACIONCMROK');
+                        $('#nombre').val(nombre);
+    
+                        msjError = "No pudimos realizar lo solicitado";
+		                urlIn = "./srv/sistema.php";
+		                formalioID = "frm_4";
+		                srv="PERFILACIONCMR";
+		                var pth = getDataJsonSbm(urlIn,formalioID,srv,msjError);
+                        console.log(pth);
+                        location.href = "index.php?"+pth; 
+                    }
+                    else{
+                        $('#tipo_error').val(tipo_error);
+                        msjError = "No pudimos realizar lo solicitado";
+		                urlIn = "./srv/sistema.php";
+		                formalioID = "frm_4";
+		                srv="ERROR_PERF";
+		                var pth = getDataJsonSbm(urlIn,formalioID,srv,msjError);
+                        console.log(pth);
+                        location.href = "index.php?"+pth;
+                    }
+                }
+                else{
+                    $('#tipo_error').val(tipo_error);
+                    msjError = "No pudimos realizar lo solicitado";
+		            urlIn = "./srv/sistema.php";
+		            formalioID = "frm_4";
+		            srv="ERROR_PERF";
+		            var pth = getDataJsonSbm(urlIn,formalioID,srv,msjError);
+                    console.log(pth);
+                    location.href = "index.php?"+pth;
+                }
             }, 500);
 
 
