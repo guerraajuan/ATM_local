@@ -253,7 +253,7 @@ function getDataJsonSbm(urlIn,formalioID,srv,msjError)
 				// Ocultar el mensaje de carga después de la llamada AJAX, independientemente del resultado
 				$("#overlay").hide();
 
-			  }
+			}
 	
          });
   return devuelve;

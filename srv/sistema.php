@@ -1939,19 +1939,34 @@ else if($acc == "PERF_CMR"){
 
 		$tarjeta = str_replace(' ', '', $_REQUEST["tarjeta"]);
 		$respuesta =  util::perfilacionCMR($tarjeta);
-
 		echo json_encode($respuesta);
-
 	}
-
 
 }
 else if($acc == "ERROR_PERF")
 {
 	$from = isset($_REQUEST["from"]) ? $_REQUEST["from"] : '';
 	$tipo_error = isset($_REQUEST["tipo_error"]) ? $_REQUEST["tipo_error"] : '';
-
 	$pth = util::encodeParamURL('pth=perfilacion_error&from='.$from).'&tipo_error='.$tipo_error;
+	echo  json_encode($pth); 
+}
+else if($acc == "PERF_CMR_OK")
+{
+	$tarjeta = isset($_REQUEST["from"]) ? str_replace(' ', '', $_REQUEST["tarjeta"]) : '';
+	$from = isset($_REQUEST["from"]) ? $_REQUEST["from"] : '';
+	$rut = isset($_REQUEST["rut"]) ? $_REQUEST["rut"] : '';
+	$dv = isset($_REQUEST["dv"]) ? $_REQUEST["dv"] : '';
+	$avance = isset($_REQUEST["avance"]) ? $_REQUEST["avance"] : '';
+	$super = isset($_REQUEST["super"]) ? $_REQUEST["super"] : '';
+	$nombre = isset($_REQUEST["nombre"]) ? $_REQUEST["nombre"] : '';
+
+	if($tarjeta !== '' && $rut !== ''  && $dv !== '' && $avance !== '' && $super !== '' && $nombre !== '' ){
+		$pth = util::encodeParamURL('pth=menu_CMR&from='.$from.'&tarjeta='.$tarjeta.'&rut='.$rut.'&dv='.$dv.'&avance='.$avance.'&super='.$super.'&nombre='.$nombre);
+	}
+	else{
+		$pth = util::encodeParamURL('pth=perfilacion_error&from='.$from).'&tipo_error=4'; //En caso de que falten datos que vienen de la perfilacion
+	}
+	
 	echo  json_encode($pth); 
 }
 

@@ -189,12 +189,15 @@
 							case "principal":
 								include './modulos/principal.php';						
 							break;
-							case "tarjeta_CMR":
-								include './modulos/tarjeta_CMR.php';						
+							case "ingreso_tarjeta":
+								include './modulos/ingreso_tarjeta.php';						
 							break;	
 							case "perfilacion_error":
 								include './modulos/perfilacion_error.php';						
-							break;							
+							break;	
+							case "menu_CMR":
+								include './modulos/menu_CMR.php';						
+							break;						
 							default:							
 								include './modulos/principal.php';
 								negSistema::saveNavegacion("Navegacion","Inicio del Sistema",0);

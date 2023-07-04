@@ -2,14 +2,8 @@
    	$from = isset($_REQUEST["from"]) ? $_REQUEST["from"] : '';
     $tipo_error = isset($_REQUEST["tipo_error"]) ? $_REQUEST["tipo_error"] : '';
     $mensaje ='';
-
-    if($from == 'TARJETA_CMR'){
-        $goto = 'index.php?'.util::encodeParamURL('pth=tarjeta_CMR'); 
-    }
-    else{
-        $goto = 'index.php?'.util::encodeParamURL('pth=perfilacion_pan'); 
-    }
-
+    $goto = 'index.php?'.util::encodeParamURL('pth=ingreso_tarjeta&from='.$from); 
+    
     switch ($tipo_error) {
         case "1":
             $mensaje ='Tarjeta Errónea';						
@@ -19,7 +13,10 @@
         break;
         case "3":
             $mensaje ='Error en servicio de perfilación';					
-        break;								
+        break;
+        case "4":
+            $mensaje ='Datos incompletos en servicio de perfilación';					
+        break;							
     }
   
 ?>

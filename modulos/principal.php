@@ -14,7 +14,7 @@
                         <i>1</i>
                     </div>
                     <h4 class="poppins hover-color2 text-left">
-                        <a class="" href="index.php?<?php echo util::encodeParamURL('pth=banco_falabella'); ?>">CUENTAS</a>
+                        <a class="" href="index.php?<?php echo util::encodeParamURL('pth=ingreso_tarjeta&from=CUENTA'); ?>">CUENTAS</a>
                     </h4>
                 </div>
             </td>
@@ -24,7 +24,7 @@
                         <i>2</i>
                     </div>
                     <h4 class="poppins hover-color3 text-right">
-                        <a href="index.php?<?php echo util::encodeParamURL('pth=tarjeta_CMR'); ?>">CMR</a>
+                        <a href="index.php?<?php echo util::encodeParamURL('pth=ingreso_tarjeta&from=CMR'); ?>">CMR</a>
                     </h4>
                 </div>
             </td>
