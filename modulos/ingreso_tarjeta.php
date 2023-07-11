@@ -77,6 +77,8 @@
     <input type="hidden" id="super" name="super" value="" />
     <input type="hidden" id="avance" name="avance" value="" />
     <input type="hidden" id="nombre" name="nombre" value="" />
+    <input type="hidden" id="cta" name="cta" value="" />
+    <input type="hidden" id="n_cta" name="n_cta" value="" />
 
 </form>
 <script type="text/javascript">
@@ -91,6 +93,8 @@
     //funcion para manejar el dato pegado en tarjetaIn
     function interceptarPegado(ev) {
         let tarjeta = ev.clipboardData.getData('text/plain');
+        tarjeta = tarjeta.replace(/\s/g, '');
+        
         let espacios = 0;
         let tar_final = '';
         if(tarjeta.length<= 17){
@@ -122,7 +126,7 @@
     /*============Limpiar input Tarjeta=======================*/
 
 
-/*============Valida solo numeros y agrega espacios=======================*/
+    /*============Valida solo numeros y agrega espacios=======================*/
     function validaNumericos(event) {
         if(event.charCode >= 48 && event.charCode <= 57){
             let  tarjetaIn = $('#tarjetaIn').val()
@@ -141,7 +145,7 @@
         let tarjetaIn = $('#tarjetaIn').val();
         let from = $('#from').val();
 
-        if(tarjetaIn.length >= 16 && tarjetaIn.length <=21){
+        if(tarjetaIn.length === 19){
 
             if(from === 'CMR'){
                 setTimeout(function() {
@@ -151,13 +155,12 @@
                     formalioID = "frm_4";
                     srv="PERF_CMR";
                     let resp = getDataJsonSbm(urlIn,formalioID,srv,msjError);
-                    //console.log(resp);
                     let cod = resp[2];
                     let respuesta = resp[1];
                     let tipo_error = resp[3];
-                    console.log(cod); 
-                    console.log(respuesta); 
-                    console.log(tipo_error); 
+                    // console.log(cod); 
+                    // console.log(respuesta); 
+                    // console.log(tipo_error); 
                     //return false;
 
                     if(cod == 1){
@@ -183,6 +186,70 @@
                             var pth = getDataJsonSbm(urlIn,formalioID,srv,msjError);
                             console.log(pth);
                             location.href = "index.php?"+pth; 
+                        }
+                        else{
+                            $('#tipo_error').val(tipo_error);
+                            msjError = "No pudimos realizar lo solicitado";
+                            urlIn = "./srv/sistema.php";
+                            formalioID = "frm_4";
+                            srv="ERROR_PERF";
+                            var pth = getDataJsonSbm(urlIn,formalioID,srv,msjError);
+                            console.log(pth);
+                            location.href = "index.php?"+pth;
+                        }
+                    }
+                    else{
+                        $('#tipo_error').val(tipo_error);
+                        msjError = "No pudimos realizar lo solicitado";
+                        urlIn = "./srv/sistema.php";
+                        formalioID = "frm_4";
+                        srv="ERROR_PERF";
+                        var pth = getDataJsonSbm(urlIn,formalioID,srv,msjError);
+                        console.log(pth);
+                        location.href = "index.php?"+pth;
+                    }
+                }, 500);
+            }
+            else if(from === 'CUENTA'){
+                setTimeout(function() {
+                    $('#tarjeta').val(tarjetaIn);
+                    msjError = "No pudimos realizar lo solicitado";
+                    urlIn = "./srv/sistema.php";
+                    formalioID = "frm_4";
+                    srv="PERF_PAN";
+                    let resp = getDataJsonSbm(urlIn,formalioID,srv,msjError);
+                    let cod = resp[2];
+                    let respuesta = resp[1];
+                    let tipo_error = resp[3]; 
+                    //return false;
+
+
+                    if(cod == 1){
+                        if (respuesta.hasOwnProperty("productos")){
+                            let codigo_error = respuesta['codigo_error'];
+                            let cliente = respuesta['cliente'];
+                            let productos = respuesta['productos']['productos'];
+                            let rut = cliente['rut'];
+                            let dv = cliente['dv'];
+                            let nombre = cliente['nombre'];
+                            let cuenta = productos['codigo_producto_a'];
+                            let pro = productos['producto'];
+                            let ncta = pro['cuenta'];
+                            ncta = ncta.toString();
+                            ncta = ncta.length < 12 ? ncta.padStart(12, '0') : ncta;
+                            $('#rut').val(rut);
+                            $('#dv').val(dv);
+                            $('#nombre').val(nombre);
+                            $('#cta').val(cuenta);
+                            $('#n_cta').val(ncta);
+                
+                            msjError = "No pudimos realizar lo solicitado";
+                            urlIn = "./srv/sistema.php";
+                            formalioID = "frm_4";
+                            srv="PERF_CUENTA_OK";
+                            var pth = getDataJsonSbm(urlIn,formalioID,srv,msjError);
+                            console.log(pth);
+                            location.href = "index.php?"+pth;  
                         }
                         else{
                             $('#tipo_error').val(tipo_error);

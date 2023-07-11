@@ -1936,12 +1936,17 @@ else if($acc == "DESCARGA_SUPER_AVANCE_CMR")
 ///////////////////////////utilizadas Parte II
 else if($acc == "PERF_CMR"){
 	if (!empty($_REQUEST["tarjeta"])) {
-
 		$tarjeta = str_replace(' ', '', $_REQUEST["tarjeta"]);
 		$respuesta =  util::perfilacionCMR($tarjeta);
 		echo json_encode($respuesta);
 	}
-
+}
+else if($acc == "PERF_PAN"){
+	if (!empty($_REQUEST["tarjeta"])) {
+		$tarjeta = str_replace(' ', '', $_REQUEST["tarjeta"]);
+		$respuesta =  util::perfilacionPAN($tarjeta);
+		echo json_encode($respuesta);
+	}
 }
 else if($acc == "ERROR_PERF")
 {
@@ -1962,6 +1967,25 @@ else if($acc == "PERF_CMR_OK")
 
 	if($tarjeta !== '' && $rut !== ''  && $dv !== '' && $avance !== '' && $super !== '' && $nombre !== '' ){
 		$pth = util::encodeParamURL('pth=menu_CMR&from='.$from.'&tarjeta='.$tarjeta.'&rut='.$rut.'&dv='.$dv.'&avance='.$avance.'&super='.$super.'&nombre='.$nombre);
+	}
+	else{
+		$pth = util::encodeParamURL('pth=perfilacion_error&from='.$from).'&tipo_error=4'; //En caso de que falten datos que vienen de la perfilacion
+	}
+	
+	echo  json_encode($pth); 
+}
+else if($acc == "PERF_CUENTA_OK")
+{
+	$tarjeta = isset($_REQUEST["from"]) ? str_replace(' ', '', $_REQUEST["tarjeta"]) : '';
+	$from = isset($_REQUEST["from"]) ? $_REQUEST["from"] : '';
+	$rut = isset($_REQUEST["rut"]) ? $_REQUEST["rut"] : '';
+	$dv = isset($_REQUEST["dv"]) ? $_REQUEST["dv"] : '';
+	$cta = isset($_REQUEST["cta"]) ? $_REQUEST["cta"] : '';
+	$n_cta = isset($_REQUEST["n_cta"]) ? $_REQUEST["n_cta"] : '';
+	$nombre = isset($_REQUEST["nombre"]) ? $_REQUEST["nombre"] : '';
+
+	if($tarjeta !== '' && $rut !== ''  && $dv !== '' && $cta !== '' && $n_cta !== '' && $nombre !== '' ){
+		$pth = util::encodeParamURL('pth=menu_CUENTA&from='.$from.'&tarjeta='.$tarjeta.'&rut='.$rut.'&dv='.$dv.'&cta='.$cta.'&n_cta='.$n_cta.'&nombre='.$nombre);
 	}
 	else{
 		$pth = util::encodeParamURL('pth=perfilacion_error&from='.$from).'&tipo_error=4'; //En caso de que falten datos que vienen de la perfilacion

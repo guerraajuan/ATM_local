@@ -197,6 +197,9 @@
 							break;	
 							case "menu_CMR":
 								include './modulos/menu_CMR.php';						
+							break;	
+							case "menu_CUENTA":
+								include './modulos/menu_CUENTA.php';						
 							break;						
 							default:							
 								include './modulos/principal.php';
